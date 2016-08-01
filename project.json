@@ -1,0 +1,27 @@
+{
+    "project_type": "javascript",
+
+    "debugMode" : 1,
+    "showFPS" : false,
+    "frameRate" : 60,
+    "noCache" : false,
+    "id" : "gameCanvas",
+    "renderMode" : 0,
+    "engineDir":"frameworks/cocos2d-html5",
+
+    "modules" : ["cocos2d","extensions"],
+
+    "jsList" : [
+        "src/resource.js",
+        "src/config.js",
+
+        "src/GameWorld/GameWorld.js",
+        "src/GameWorld/RockerSprite.js",
+
+        "src/StartMenu/StartMenu.js",
+        "src/StartMenu/layer/BackgroundLayer.js",
+        "src/StartMenu/layer/MainLayer.js"
+
+
+    ]
+}
