@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="255" height="255" tilewidth="32" tileheight="32" nextobjectid="4">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="255" height="255" tilewidth="32" tileheight="32" nextobjectid="7">
  <tileset firstgid="1" name="地图" tilewidth="32" tileheight="32" tilecount="216" columns="8">
   <image source="map.png" width="256" height="877"/>
  </tileset>
@@ -263,6 +263,7 @@
 </data>
  </layer>
  <objectgroup name="Object">
-  <object id="1" name="startPoint" type="people" x="1040" y="7662"/>
+  <object id="1" name="startPoint" x="2895" y="7479"/>
+  <object id="4" name="NO7" x="2868" y="7689"/>
  </objectgroup>
 </map>

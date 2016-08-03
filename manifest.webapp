@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "name": "test",
-  "description": "test",
+  "name": "metalmax",
+  "description": "metalmax",
   "launch_path": "/index.html",
   "icons": {
     "128": "/res/icon.png"

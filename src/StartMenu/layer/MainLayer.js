@@ -1,7 +1,6 @@
 /**
- * Created by lingjianfeng on 15/4/1.
+ * Created by 路漫漫在狂奔 on 16/7/30.
  */
-
 
 var MMMainLayer = cc.Layer.extend({
     btnStart : null,

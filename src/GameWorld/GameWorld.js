@@ -15,6 +15,10 @@ var GameWorldLayer = cc.Layer.extend({
     player              : null,
     playerDir           : 0,        // [当前方向]
     playerSpeed         : 3.0,      // [速度]
+    tank                : null,
+    tankStatus          : null,
+    tanktPoint          : 0,
+
 
     ctor:function () {
         this._super();
@@ -34,7 +38,7 @@ var GameWorldLayer = cc.Layer.extend({
         this.addChild(this.map,-1);
         //获取map size
         this.mapWidth = this.map.getContentSize().width;
-        this.mapHeight = this.map.getContentSize().width;
+        this.mapHeight = this.map.getContentSize().height;
 
         //获取map中的object
         this.mapObject = this.map.getObjectGroup('Object');
@@ -82,7 +86,7 @@ var GameWorldLayer = cc.Layer.extend({
         this.rocker.setPosition(this.player.x-280,this.player.y-100);
 
         var labelA = new cc.LabelTTF("A", "Arial", 40);
-        var labelB = new cc.LabelTTF("B", "Arial", 40);
+        var labelB = new cc.LabelTTF("C", "Arial", 40);
         //创建菜单，并监听
         var nodeA = new cc.MenuItemLabel(labelA,this.onBtnCallback,this);
         var nodeB = new cc.MenuItemLabel(labelB,this.onBtnBCallback,this);
@@ -109,14 +113,20 @@ var GameWorldLayer = cc.Layer.extend({
     },
     // 回调函数[按钮触发]
     onBtnCallback : function(sender){
-        if (!this.menu) {
-            cc.log('btn触摸');
-            this.menu =  new cc.Sprite(res.UI_Main_png);
-            this.addChild(this.menu);
-        }
-        this.rocker.pause();
-        this.menu.setPosition(this.player.x,this.player.y-120);
-        this.menu.setVisible(true);
+        // if (!this.menu) {
+        //     this.menu =  new cc.Sprite(res.UI_Main_png);
+        //     this.addChild(this.menu);
+        // }
+        // this.rocker.pause();
+        // this.menu.setPosition(this.player.x,this.player.y-120);
+        // this.menu.setVisible(true);
+
+        //乘降系统 test
+        this.player.setTexture('#NO7_1_1.png');
+        cc.log('set NO7');
+        this.tankStatus = 1;
+        this.tank.setVisible(false);
+
 
         // var dir = this.rocker.direction;
         // if (dir != this.playerDir){
@@ -128,8 +138,12 @@ var GameWorldLayer = cc.Layer.extend({
     },
     // 回调函数[按钮触发]
     onBtnBCallback : function(sender){
-            this.menu.setVisible(false);
-            this.rocker.resume();
+            // this.menu.setVisible(false);
+            this.player.setTexture('#lang_1_1.png');
+            this.tankStatus = 0;
+            this.tank.setPosition(this.player.x,this.player.y);
+            this.tank.setVisible(true);
+            // this.rocker.resume();
         // var dir = this.rocker.direction;
         // if (dir != this.playerDir){
         //     this.playerDir = dir;
@@ -150,7 +164,12 @@ var GameWorldLayer = cc.Layer.extend({
         // 动作数组
         var animFrames = [];
         for (var i = 1; i < 5; i++) {
-            var str = "红狼"+ dir + i + ".png";
+            if (this.tankStatus==1) {
+                var str = "NO7_"+ i +'_' +dir + ".png";
+            }else{
+                var str = "lang_"+ i +'_' +dir + ".png";
+            }
+
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
             animFrames.push(frame);
         }
@@ -182,17 +201,29 @@ var GameWorldLayer = cc.Layer.extend({
             default :
                 break;
         }
+        //跟随玩家位置
         this.rocker.setPosition(this.player.x-280,this.player.y-100);
         this.btn.setPosition(this.player.x+350,this.player.y-120);
     },
     loadMainLayer : function(){
 
         cc.spriteFrameCache.addSpriteFrames(res.zhujiao_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.no7_plist);
 
-        this.player = new cc.Sprite('#红狼11.png');
+        this.tankPoint = this.mapObject.getObject('NO7');
+        this.tank = new cc.Sprite('#NO7_1_1.png');
+        this.addChild(this.tank,1);
+        this.tank.setScale(2);
+        this.tank.setPosition(this.tankPoint);
+
+        this.player = new cc.Sprite('#lang_1_1.png');
         this.addChild(this.player,1);
         this.player.name = '红狼';
         this.player.setPosition(this.startPoint);
+        this.player.setScale(2);
+
+
+
         //视角跟随
         this.runAction(cc.follow(this.player, cc.rect(0, 0,this.mapWidth,this.mapHeight)));
         ;

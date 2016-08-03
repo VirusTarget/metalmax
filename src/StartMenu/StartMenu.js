@@ -1,4 +1,6 @@
-
+/**
+ * Created by 路漫漫在狂奔 on 16/7/30.
+ */
 var StartMenuLayer = cc.Layer.extend({
     backgroundLayer     : null,     // 背景层
     mainLayar           : null,     // 游戏层
